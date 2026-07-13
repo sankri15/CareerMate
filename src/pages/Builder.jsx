@@ -3,11 +3,13 @@ import { Download, Sparkles, LayoutTemplate, Palette, Briefcase, Plus, Trash2, C
 import html2pdf from 'html2pdf.js';
 
 const COLORS = [
-  { name: 'Slate', value: 'text-slate-800', bg: 'bg-slate-800', border: 'border-slate-800' },
-  { name: 'Orange', value: 'text-orange-700', bg: 'bg-orange-700', border: 'border-orange-700' },
-  { name: 'Blue', value: 'text-blue-700', bg: 'bg-blue-700', border: 'border-blue-700' },
-  { name: 'Emerald', value: 'text-emerald-700', bg: 'bg-emerald-700', border: 'border-emerald-700' },
-  { name: 'Rose', value: 'text-rose-700', bg: 'bg-rose-700', border: 'border-rose-700' },
+  { name: 'Slate',   hex: '#1e293b', swatch: '#475569' },
+  { name: 'Orange',  hex: '#c2410c', swatch: '#ea580c' },
+  { name: 'Blue',    hex: '#1d4ed8', swatch: '#3b82f6' },
+  { name: 'Emerald', hex: '#065f46', swatch: '#10b981' },
+  { name: 'Rose',    hex: '#be123c', swatch: '#f43f5e' },
+  { name: 'Purple',  hex: '#6b21a8', swatch: '#a855f7' },
+  { name: 'Teal',    hex: '#0f766e', swatch: '#14b8a6' },
 ];
 
 export default function Builder() {
@@ -151,12 +153,14 @@ export default function Builder() {
 
   // --- TEMPLATES ---
   
+  const c = activeColor.hex; // shorthand for inline color
+
   const AcademicTemplate = () => (
     <div className="w-full h-full bg-white text-black p-10 font-serif text-[11px] leading-relaxed">
       {/* Header */}
       <div className="mb-4">
         <div className="flex justify-between items-end mb-1">
-          <h1 className={`text-2xl font-bold ${activeColor.value}`}>{data.name}</h1>
+          <h1 className="text-2xl font-bold" style={{ color: c }}>{data.name}</h1>
           <div className="text-right">
             <div>Email: {data.email}</div>
             <div>Mobile: {data.phone}</div>
@@ -171,10 +175,10 @@ export default function Builder() {
       {/* Education */}
       {data.education.length > 0 && (
         <div className="mb-4">
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Education</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Education</h2>
           {data.education.map(edu => (
             <div key={edu.id} className="mb-2 relative pl-3">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               <div className="flex justify-between font-bold">
                 <span>{edu.school}</span>
                 <span className="font-normal">{edu.location}</span>
@@ -191,10 +195,10 @@ export default function Builder() {
       {/* Experience */}
       {data.experience.length > 0 && (
         <div className="mb-4">
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Experience</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Experience</h2>
           {data.experience.map(exp => (
             <div key={exp.id} className="mb-2 relative pl-3">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               <div className="flex justify-between font-bold">
                 <span>{exp.company}</span>
                 <span className="font-normal">{exp.location}</span>
@@ -205,7 +209,7 @@ export default function Builder() {
               </div>
               {exp.bullets.map((b, i) => (
                 <div key={i} className="relative pl-4 mb-0.5">
-                  <span className={`absolute left-0 top-0 text-[9px] ${activeColor.value}`}>◦</span>
+                  <span className="absolute left-0 top-0 text-[9px]" style={{ color: c }}>◦</span>
                   {b}
                 </div>
               ))}
@@ -217,15 +221,15 @@ export default function Builder() {
       {/* Projects */}
       {data.projects.length > 0 && (
         <div className="mb-4">
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Projects</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Projects</h2>
           {data.projects.map(proj => (
             <div key={proj.id} className="mb-2 relative pl-3">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               <div className="font-bold">{proj.name}</div>
               <div className="italic mb-1">Tech Stack: {proj.tech}</div>
               {proj.bullets.map((b, i) => (
                 <div key={i} className="relative pl-4 mb-0.5">
-                  <span className={`absolute left-0 top-0 text-[9px] ${activeColor.value}`}>◦</span>
+                  <span className="absolute left-0 top-0 text-[9px]" style={{ color: c }}>◦</span>
                   {b}
                 </div>
               ))}
@@ -237,10 +241,10 @@ export default function Builder() {
       {/* Achievements */}
       {data.achievements.length > 0 && (
         <div className="mb-4">
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Achievements</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Achievements</h2>
           {data.achievements.map((ach, i) => (
             <div key={i} className="relative pl-3 mb-0.5">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               {ach}
             </div>
           ))}
@@ -250,10 +254,10 @@ export default function Builder() {
       {/* Skills */}
       {data.skills.length > 0 && (
         <div className="mb-4">
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Skills</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Skills</h2>
           {data.skills.map(sk => (
             <div key={sk.id} className="relative pl-3 mb-0.5">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               <span className="font-bold">{sk.category}:</span> {sk.items}
             </div>
           ))}
@@ -263,10 +267,10 @@ export default function Builder() {
       {/* Activities */}
       {data.activities.length > 0 && (
         <div>
-          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Hobbies & Activities</h2>
+          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5" style={{ color: c, borderColor: c, fontVariant: 'small-caps' }}>Hobbies & Activities</h2>
           {data.activities.map((act, i) => (
             <div key={i} className="relative pl-3 mb-0.5">
-              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
+              <span className="absolute left-0 top-0 text-[10px]" style={{ color: c }}>•</span>
               {act}
             </div>
           ))}
@@ -277,8 +281,8 @@ export default function Builder() {
 
   const ModernTemplate = () => (
     <div className="w-full h-full bg-white text-slate-800 p-10 font-sans text-xs leading-relaxed">
-      <div className={`border-b-4 ${activeColor.border} pb-6 mb-6 text-center`}>
-        <h1 className={`text-4xl font-black mb-2 ${activeColor.value}`}>{data.name}</h1>
+      <div className="pb-6 mb-6 text-center" style={{ borderBottom: `4px solid ${c}` }}>
+        <h1 className="text-4xl font-black mb-2" style={{ color: c }}>{data.name}</h1>
         <div className="text-slate-500 font-medium space-x-4">
           <span>{data.email}</span> • <span>{data.phone}</span> • <span>{data.linkedin}</span>
         </div>
@@ -287,11 +291,11 @@ export default function Builder() {
         <div className="col-span-2">
           {data.experience.length > 0 && (
             <div className="mb-6">
-              <h2 className={`text-lg font-bold mb-3 ${activeColor.value}`}>EXPERIENCE</h2>
+              <h2 className="text-lg font-bold mb-3" style={{ color: c }}>EXPERIENCE</h2>
               {data.experience.map(p => (
                 <div key={p.id} className="mb-4">
                   <h3 className="font-bold text-sm">{p.role}</h3>
-                  <p className="text-slate-500 font-semibold mb-2 text-[10px]">{p.company} | {p.date}</p>
+                  <p className="font-semibold mb-2 text-[10px]" style={{ color: c }}>{p.company} | {p.date}</p>
                   <ul className="list-disc pl-4 space-y-1">
                     {p.bullets.map((b,i) => <li key={i}>{b}</li>)}
                   </ul>
@@ -302,7 +306,7 @@ export default function Builder() {
 
           {data.projects.length > 0 && (
             <div className="mb-6">
-              <h2 className={`text-lg font-bold mb-3 ${activeColor.value}`}>PROJECTS</h2>
+              <h2 className="text-lg font-bold mb-3" style={{ color: c }}>PROJECTS</h2>
               {data.projects.map(p => (
                 <div key={p.id} className="mb-4">
                   <h3 className="font-bold text-sm">{p.name}</h3>
@@ -319,7 +323,7 @@ export default function Builder() {
         <div className="col-span-1 space-y-6">
           {data.education.length > 0 && (
             <div>
-              <h2 className={`text-lg font-bold mb-3 ${activeColor.value}`}>EDUCATION</h2>
+              <h2 className="text-lg font-bold mb-3" style={{ color: c }}>EDUCATION</h2>
               {data.education.map(e => (
                 <div key={e.id} className="mb-3">
                   <h3 className="font-bold">{e.school}</h3>
@@ -331,7 +335,7 @@ export default function Builder() {
           )}
           {data.skills.length > 0 && (
             <div>
-              <h2 className={`text-lg font-bold mb-3 ${activeColor.value}`}>SKILLS</h2>
+              <h2 className="text-lg font-bold mb-3" style={{ color: c }}>SKILLS</h2>
               {data.skills.map(s => (
                 <div key={s.id} className="mb-2">
                   <h3 className="font-bold text-[10px] uppercase">{s.category}</h3>
@@ -342,7 +346,7 @@ export default function Builder() {
           )}
           {data.activities.length > 0 && (
             <div>
-              <h2 className={`text-lg font-bold mb-3 ${activeColor.value}`}>ACTIVITIES</h2>
+              <h2 className="text-lg font-bold mb-3" style={{ color: c }}>ACTIVITIES</h2>
               <ul className="list-disc pl-3 text-slate-600">
                 {data.activities.map((a,i) => <li key={i} className="mb-1">{a}</li>)}
               </ul>
@@ -357,14 +361,14 @@ export default function Builder() {
     <div className="w-full h-full bg-white text-slate-800 p-12 font-sans text-[11px] leading-relaxed flex flex-col gap-6">
       <div className="mb-4">
         <h1 className="text-3xl font-light tracking-tight mb-2">{data.name}</h1>
-        <div className={`text-xs space-x-3 ${activeColor.value}`}>
+        <div className="text-xs space-x-3" style={{ color: c }}>
           <span>{data.email}</span> | <span>{data.phone}</span> | <span>{data.github}</span> | <span>{data.linkedin}</span>
         </div>
       </div>
 
       {data.experience.length > 0 && (
         <div>
-          <h2 className={`text-sm font-semibold tracking-widest uppercase mb-4 ${activeColor.value}`}>Experience</h2>
+          <h2 className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: c }}>Experience</h2>
           {data.experience.map(exp => (
             <div key={exp.id} className="mb-4 flex gap-6">
               <div className="w-1/4 shrink-0 text-slate-500 font-medium">{exp.date}</div>
@@ -382,7 +386,7 @@ export default function Builder() {
 
       {data.projects.length > 0 && (
         <div>
-          <h2 className={`text-sm font-semibold tracking-widest uppercase mb-4 ${activeColor.value}`}>Projects</h2>
+          <h2 className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: c }}>Projects</h2>
           {data.projects.map(proj => (
             <div key={proj.id} className="mb-4 flex gap-6">
               <div className="w-1/4 shrink-0 text-slate-500 font-medium">Project</div>
@@ -400,7 +404,7 @@ export default function Builder() {
 
       {data.education.length > 0 && (
         <div>
-          <h2 className={`text-sm font-semibold tracking-widest uppercase mb-4 ${activeColor.value}`}>Education</h2>
+          <h2 className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: c }}>Education</h2>
           {data.education.map(edu => (
             <div key={edu.id} className="mb-3 flex gap-6">
               <div className="w-1/4 shrink-0 text-slate-500 font-medium">{edu.date}</div>
@@ -418,7 +422,7 @@ export default function Builder() {
   const CreativeTemplate = () => (
     <div className="w-full h-full bg-white text-slate-800 font-sans text-xs leading-relaxed flex">
       {/* Sidebar */}
-      <div className={`w-1/3 ${activeColor.bg} text-white p-8 space-y-8 flex flex-col`}>
+      <div className="w-1/3 text-white p-8 space-y-8 flex flex-col" style={{ backgroundColor: c }}>
         <div>
           <h1 className="text-3xl font-black mb-2 leading-tight">{data.name}</h1>
         </div>
@@ -462,11 +466,11 @@ export default function Builder() {
         
         {data.experience.length > 0 && (
           <div className="mb-8">
-            <h2 className={`text-xl font-bold uppercase tracking-widest mb-4 ${activeColor.value}`}>Experience</h2>
+            <h2 className="text-xl font-bold uppercase tracking-widest mb-4" style={{ color: c }}>Experience</h2>
             {data.experience.map(exp => (
               <div key={exp.id} className="mb-5 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                 <h3 className="font-bold text-sm text-slate-900">{exp.role}</h3>
-                <p className={`font-semibold mb-2 text-[10px] ${activeColor.value}`}>{exp.company} | {exp.date}</p>
+                <p className="font-semibold mb-2 text-[10px]" style={{ color: c }}>{exp.company} | {exp.date}</p>
                 <ul className="list-disc pl-4 space-y-1 text-slate-600 text-[11px]">
                   {exp.bullets.map((b,i) => <li key={i}>{b}</li>)}
                 </ul>
@@ -477,7 +481,7 @@ export default function Builder() {
 
         {data.projects.length > 0 && (
           <div className="mb-8">
-            <h2 className={`text-xl font-bold uppercase tracking-widest mb-4 ${activeColor.value}`}>Projects</h2>
+            <h2 className="text-xl font-bold uppercase tracking-widest mb-4" style={{ color: c }}>Projects</h2>
             {data.projects.map(proj => (
               <div key={proj.id} className="mb-5 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                 <h3 className="font-bold text-sm text-slate-900">{proj.name}</h3>
@@ -492,7 +496,7 @@ export default function Builder() {
 
         {data.education.length > 0 && (
           <div className="mb-8">
-            <h2 className={`text-xl font-bold uppercase tracking-widest mb-4 ${activeColor.value}`}>Education</h2>
+            <h2 className="text-xl font-bold uppercase tracking-widest mb-4" style={{ color: c }}>Education</h2>
             {data.education.map(edu => (
               <div key={edu.id} className="mb-4">
                 <h3 className="font-bold text-slate-900">{edu.school}</h3>
@@ -518,8 +522,7 @@ export default function Builder() {
         }
       `}</style>
       
-      {/* Tailwind v4 Safelist */}
-      <div className="hidden text-slate-800 bg-slate-800 border-slate-800 text-orange-700 bg-orange-700 border-orange-700 text-blue-700 bg-blue-700 border-blue-700 text-emerald-700 bg-emerald-700 border-emerald-700 text-rose-700 bg-rose-700 border-rose-700 border-b-4 border-2"></div>
+      {/* Colors now use inline styles - no Tailwind safelist needed */}
 
       <div className="text-center mb-8 no-print">
         <h2 className="text-3xl font-bold mb-2 text-white">
@@ -564,11 +567,13 @@ export default function Builder() {
               <div className="w-px h-6 bg-white/20 mx-1 hidden sm:block"></div>
 
               <div className="flex gap-1 bg-white/5 p-1 rounded-full border border-white/10 hidden sm:flex">
-                {COLORS.map(c => (
+                {COLORS.map(col => (
                   <button 
-                    key={c.name} onClick={() => setActiveColor(c)}
-                    className={`w-5 h-5 rounded-full border-2 transition-all ${c.bg} ${activeColor.name === c.name ? 'border-white scale-110' : 'border-transparent'}`}
-                    title={c.name}
+                    key={col.name}
+                    onClick={() => setActiveColor(col)}
+                    style={{ backgroundColor: col.swatch, borderColor: activeColor.name === col.name ? '#ffffff' : 'transparent' }}
+                    className={`w-5 h-5 rounded-full border-2 transition-all ${activeColor.name === col.name ? 'scale-125' : 'opacity-70 hover:opacity-100'}`}
+                    title={col.name}
                   />
                 ))}
               </div>

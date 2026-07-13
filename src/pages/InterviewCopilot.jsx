@@ -11,7 +11,7 @@ export default function InterviewCopilot() {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(false);
   const [error, setError] = useState('');
   const bottomRef = useRef(null);
   const recognitionRef = useRef(null);

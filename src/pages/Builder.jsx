@@ -517,6 +517,9 @@ export default function Builder() {
           .no-print { display: none !important; }
         }
       `}</style>
+      
+      {/* Tailwind v4 Safelist */}
+      <div className="hidden text-slate-800 bg-slate-800 border-slate-800 text-orange-700 bg-orange-700 border-orange-700 text-blue-700 bg-blue-700 border-blue-700 text-emerald-700 bg-emerald-700 border-emerald-700 text-rose-700 bg-rose-700 border-rose-700 border-b-4 border-2"></div>
 
       <div className="text-center mb-8 no-print">
         <h2 className="text-3xl font-bold mb-2 text-white">

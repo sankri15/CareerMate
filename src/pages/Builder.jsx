@@ -156,7 +156,7 @@ export default function Builder() {
       {/* Header */}
       <div className="mb-4">
         <div className="flex justify-between items-end mb-1">
-          <h1 className="text-2xl font-bold">{data.name}</h1>
+          <h1 className={`text-2xl font-bold ${activeColor.value}`}>{data.name}</h1>
           <div className="text-right">
             <div>Email: {data.email}</div>
             <div>Mobile: {data.phone}</div>
@@ -171,10 +171,10 @@ export default function Builder() {
       {/* Education */}
       {data.education.length > 0 && (
         <div className="mb-4">
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Education</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Education</h2>
           {data.education.map(edu => (
             <div key={edu.id} className="mb-2 relative pl-3">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               <div className="flex justify-between font-bold">
                 <span>{edu.school}</span>
                 <span className="font-normal">{edu.location}</span>
@@ -191,10 +191,10 @@ export default function Builder() {
       {/* Experience */}
       {data.experience.length > 0 && (
         <div className="mb-4">
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Experience</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Experience</h2>
           {data.experience.map(exp => (
             <div key={exp.id} className="mb-2 relative pl-3">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               <div className="flex justify-between font-bold">
                 <span>{exp.company}</span>
                 <span className="font-normal">{exp.location}</span>
@@ -205,7 +205,7 @@ export default function Builder() {
               </div>
               {exp.bullets.map((b, i) => (
                 <div key={i} className="relative pl-4 mb-0.5">
-                  <span className="absolute left-0 top-0 text-[9px]">◦</span>
+                  <span className={`absolute left-0 top-0 text-[9px] ${activeColor.value}`}>◦</span>
                   {b}
                 </div>
               ))}
@@ -217,15 +217,15 @@ export default function Builder() {
       {/* Projects */}
       {data.projects.length > 0 && (
         <div className="mb-4">
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Projects</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Projects</h2>
           {data.projects.map(proj => (
             <div key={proj.id} className="mb-2 relative pl-3">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               <div className="font-bold">{proj.name}</div>
               <div className="italic mb-1">Tech Stack: {proj.tech}</div>
               {proj.bullets.map((b, i) => (
                 <div key={i} className="relative pl-4 mb-0.5">
-                  <span className="absolute left-0 top-0 text-[9px]">◦</span>
+                  <span className={`absolute left-0 top-0 text-[9px] ${activeColor.value}`}>◦</span>
                   {b}
                 </div>
               ))}
@@ -237,10 +237,10 @@ export default function Builder() {
       {/* Achievements */}
       {data.achievements.length > 0 && (
         <div className="mb-4">
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Achievements</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Achievements</h2>
           {data.achievements.map((ach, i) => (
             <div key={i} className="relative pl-3 mb-0.5">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               {ach}
             </div>
           ))}
@@ -250,10 +250,10 @@ export default function Builder() {
       {/* Skills */}
       {data.skills.length > 0 && (
         <div className="mb-4">
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Skills</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Skills</h2>
           {data.skills.map(sk => (
             <div key={sk.id} className="relative pl-3 mb-0.5">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               <span className="font-bold">{sk.category}:</span> {sk.items}
             </div>
           ))}
@@ -263,10 +263,10 @@ export default function Builder() {
       {/* Activities */}
       {data.activities.length > 0 && (
         <div>
-          <h2 className="text-[13px] font-bold uppercase tracking-wider border-b border-black mb-2 pb-0.5" style={{ fontVariant: 'small-caps' }}>Hobbies & Activities</h2>
+          <h2 className={`text-[13px] font-bold uppercase tracking-wider border-b mb-2 pb-0.5 ${activeColor.value} ${activeColor.border}`} style={{ fontVariant: 'small-caps' }}>Hobbies & Activities</h2>
           {data.activities.map((act, i) => (
             <div key={i} className="relative pl-3 mb-0.5">
-              <span className="absolute left-0 top-0 text-[10px]">•</span>
+              <span className={`absolute left-0 top-0 text-[10px] ${activeColor.value}`}>•</span>
               {act}
             </div>
           ))}

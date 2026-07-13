@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, KeyRound, AlertCircle, Mic } from 'lucide-react';
+import { Send, Bot, User, KeyRound, AlertCircle, Mic, Volume2, VolumeX } from 'lucide-react';
 
 export default function InterviewCopilot() {
   const envKey = import.meta.env.VITE_NEURAL_API_KEY;
@@ -11,6 +11,7 @@ export default function InterviewCopilot() {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [error, setError] = useState('');
   const bottomRef = useRef(null);
   const recognitionRef = useRef(null);
@@ -142,7 +143,7 @@ export default function InterviewCopilot() {
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponseText }]);
       
       // Auto-play text-to-speech for the AI response
-      if ('speechSynthesis' in window) {
+      if (isAudioEnabled && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel(); // Stop any ongoing speech
         const utterance = new SpeechSynthesisUtterance(aiResponseText);
         utterance.rate = 1.0;
@@ -172,7 +173,22 @@ export default function InterviewCopilot() {
 
       <div className="glass-card rounded-2xl flex flex-col h-[650px] border border-violet-500/20 overflow-hidden relative">
         
-        {/* Settings Panel Overlay Removed */}
+        {/* Audio Toggle */}
+        <button 
+          onClick={() => {
+            setIsAudioEnabled(!isAudioEnabled);
+            if (isAudioEnabled && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+          }}
+          className={`absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg border flex items-center gap-2 text-xs transition-colors shadow-lg backdrop-blur-sm ${
+            isAudioEnabled 
+              ? 'bg-violet-500/20 border-violet-500/30 text-violet-300 hover:bg-violet-500/30' 
+              : 'bg-black/40 border-white/10 text-slate-400 hover:bg-black/60'
+          }`}
+          title={isAudioEnabled ? "Disable AI Voice" : "Enable AI Voice"}
+        >
+          {isAudioEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+          {isAudioEnabled ? 'Audio ON' : 'Audio OFF'}
+        </button>
 
         {/* Chat History */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">

@@ -13,7 +13,7 @@ CareerMate is a comprehensive, AI-powered career preparation platform designed t
 <br />
 
 <div align="center">
-  <img src="./public/preview.png" alt="CareerMate Builder Preview" width="70%"/>
+  <img src="./carp.png"  alt="CareerMate Builder Preview" width="70%"/>
 </div>
 
 <br />

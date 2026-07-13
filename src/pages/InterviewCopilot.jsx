@@ -15,10 +15,6 @@ export default function InterviewCopilot() {
   const bottomRef = useRef(null);
   const recognitionRef = useRef(null);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping, showSettings]);
-
   const saveApiKey = (key) => {
     setApiKey(key);
     localStorage.setItem('neural_api_key', key);
@@ -137,10 +133,23 @@ export default function InterviewCopilot() {
     setMessages(newHistory);
     setInput('');
     setIsTyping(true);
+    
+    // Smooth scroll down slightly when user sends a message
+    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 
     try {
       const aiResponseText = await generateAIResponse(newHistory);
       setMessages(prev => [...prev, { role: 'assistant', content: aiResponseText }]);
+      
+      // Auto-play text-to-speech for the AI response
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Stop any ongoing speech
+        const utterance = new SpeechSynthesisUtterance(aiResponseText);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+      
     } catch (err) {
       setError(err.message);
       setMessages(messages);
